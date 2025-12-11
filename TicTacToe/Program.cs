@@ -9,7 +9,7 @@ namespace TicTacToe
             Player[] players = new Player[]
             {
                 new HumanPlayer('X', "Joueur 1"),
-                new HumanPlayer('O', "Joueur 2")
+                new AIPlayer('O', "Bot")
             };
 
             var game = new Game(players);
