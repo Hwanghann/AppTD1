@@ -1,0 +1,56 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+/bin/
+/obj/
+/publish/
+/TestResults/
+*.BuildAnalyzerLog
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+.nuget/packages/
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+_ReSharper*/
+
+# Visual Studio Code
+.vscode/
+
+# Logs, temps, caches
+*.log
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database files
+*.mdf
+*.ldf
+*.sqlite
+
+# Coverage and test output
+*.coverage
+*.coveragexml
+coverage.opencover.xml
+
+# NuGet secrets / user-specific config
+secrets.json
+appsettings.*.Local.json
+
+# Misc
+*.vsix
+*.nupkg
+*.userprefs
