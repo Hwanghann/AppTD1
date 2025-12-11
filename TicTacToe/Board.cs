@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TicTacToe
 {
@@ -39,12 +37,12 @@ namespace TicTacToe
             Console.WriteLine();
         }
 
-        public char GetDisplayChar(int i) => _cells[i] == ' ' ? (char)('1' + i) : _cells[i];
+        public char GetDisplayChar(int i) => IsCellEmpty(i) ? (char)('1' + i) : _cells[i];
 
         public bool PlayMove(int index, char symbol)
         {
             if (index < 0 || index > 8) return false;
-            if (_cells[index] != ' ') return false;
+            if (!IsCellEmpty(index)) return false;
             _cells[index] = symbol;
             return true;
         }
@@ -54,7 +52,7 @@ namespace TicTacToe
         public bool IsFull()
         {
             for (int i = 0; i < 9; i++)
-                if (_cells[i] == ' ') return false;
+                if (IsCellEmpty(i)) return false;
             return true;
         }
 
