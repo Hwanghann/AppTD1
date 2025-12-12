@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace TicTacToe
 {
@@ -17,8 +18,12 @@ namespace TicTacToe
             _input = input ?? Console.In;
         }
 
-        // Retourne l'index de case (0-8) ou -1 si le joueur abandonne
-        public abstract int GetNextMove(Board board);
+        // API synchrone existante (conserver pour compatibilité)
+        public virtual int GetNextMove(Board board) => -1;
+
+        // Nouvelle API asynchrone : par défaut délègue à la version synchrone
+        public virtual Task<int> GetNextMoveAsync(Board board)
+            => Task.Run(() => GetNextMove(board));
     }
 
     public class HumanPlayer : Player
