@@ -2,7 +2,7 @@ using System;
 
 namespace TicTacToe
 {
-    internal class Game
+    public class Game
     {
         private readonly Board _board;
         private readonly Player[] _players;
@@ -15,6 +15,9 @@ namespace TicTacToe
             _board = new Board();
             _currentIndex = 0;
         }
+
+        // Permet aux tests d'exécuter la partie sans blocage final
+        public bool WaitForExit { get; set; } = true;
 
         public void Play()
         {
@@ -53,8 +56,15 @@ namespace TicTacToe
                 SwitchPlayer();
             }
 
-            Console.WriteLine("Fin de la partie. Appuyez sur Entrée pour quitter.");
-            Console.ReadLine();
+            if (WaitForExit)
+            {
+                Console.WriteLine("Fin de la partie. Appuyez sur Entrée pour quitter.");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Fin de la partie.");
+            }
         }
 
         private void SwitchPlayer() => _currentIndex = (_currentIndex + 1) % _players.Length;

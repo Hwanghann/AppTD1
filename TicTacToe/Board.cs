@@ -1,8 +1,9 @@
 ﻿using System;
 
+
 namespace TicTacToe
 {
-    internal class Board
+    public class Board
     {
         private readonly char[] _cells = new char[9];
 
@@ -25,7 +26,10 @@ namespace TicTacToe
 
         public void Display()
         {
-            Console.Clear();
+            if (!Console.IsOutputRedirected)
+            {
+                Console.Clear();
+            }
             Console.WriteLine();
             Console.WriteLine($" {GetDisplayChar(0)} | {GetDisplayChar(1)} | {GetDisplayChar(2)} ");
             Console.WriteLine("---+---+---");
