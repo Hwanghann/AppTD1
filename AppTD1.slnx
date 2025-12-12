@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="TicTacToe/TicTacToe.csproj" />
+  <Project Path="TicTacToe_Test/TicTacToe_Test.csproj" Id="64f74d66-ae85-4e13-ac25-d84327d63070" />
 </Solution>
