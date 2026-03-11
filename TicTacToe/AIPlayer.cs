@@ -1,29 +1,53 @@
 using System;
-using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    internal class AIPlayer : Player
+    public class AIPlayer : Player
     {
-        private static readonly Random _rng = new Random();
+        // durée totale de réflexion en ms (modifiable)
+        public int ThinkMilliseconds { get; set; } = 1200;
 
-        public AIPlayer(char symbol, string name = "Bot") : base(symbol, name) { }
-
-        public override int GetNextMove(Board board)
+        public AIPlayer(char symbol, string name, int thinkMs = 1200) : base(symbol, name)
         {
-            // Priorité : centre si libre
-            if (board.IsCellEmpty(4)) return 4;
+            ThinkMilliseconds = thinkMs;
+        }
 
-            // Sinon choisir une case libre au hasard
-            var empties = new List<int>(9);
-            for (int i = 0; i < 9; i++)
+        // Option asynchrone avec animation de 33 points
+        public override async Task<int> GetNextMoveAsync(Board board)
+        {
+            const int dots = 33;
+            int delay = Math.Max(1, ThinkMilliseconds / dots);
+
+            if (!Console.IsOutputRedirected)
             {
-                if (board.IsCellEmpty(i)) empties.Add(i);
+                var sb = new StringBuilder();
+                Console.Write($"{Name} pense ");
+                for (int i = 0; i < dots; i++)
+                {
+                    Console.Write('.');
+                    await Task.Delay(delay).ConfigureAwait(false);
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                // si la sortie est redirigée (tests), on attend sans écrire
+                await Task.Delay(ThinkMilliseconds).ConfigureAwait(false);
             }
 
-            if (empties.Count == 0) return -1;
-            return empties[_rng.Next(empties.Count)];
-        }
-    }
+            // logique simple de choix : premier emplacement vide
+            for (int i = 0; i < 9; i++)
+            {
+                if (board.IsCellEmpty(i)) return i;
+            }
 
+            return -1;
+        }
+
+        // (optionnel) garder la compatibilité synchrone si on veut
+        public override int GetNextMove(Board board)
+            => GetNextMoveAsync(board).GetAwaiter().GetResult();
+    }
 }

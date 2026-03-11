@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace TicTacToe
 {
     public class Board
@@ -23,6 +22,16 @@ namespace TicTacToe
         {
             for (int i = 0; i < 9; i++) _cells[i] = ' ';
         }
+
+        // Constructeur pour restaurer un état
+        public Board(string state)
+        {
+            if (state == null) throw new ArgumentNullException(nameof(state));
+            if (state.Length != 9) throw new ArgumentException("State must be exactly 9 characters.", nameof(state));
+            for (int i = 0; i < 9; i++) _cells[i] = state[i];
+        }
+
+        public string ToStateString() => new string(_cells);
 
         public void Display()
         {
